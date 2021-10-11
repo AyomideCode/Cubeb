@@ -1,0 +1,79 @@
+﻿GROUP PROJECT PROPOSAL[a]
+CSCI-136 (PYTHON)
+FALL 2021
+
+
+
+
+Group # & Member Names:
+Group 14:
+Ayomide Okeshola
+Julian Francis
+
+
+Project Idea:
+We will build a small-scale, minimalist 2D platformer game, compatible with keyboard/most Xinput controllers — featuring a sandbox level along with a linear level.
+Placeholder project name: Cubeb
+
+
+Project Value Proposition:
+Cubeb revolves around the passion of game-making and finding out the struggle that comes with it. We want to understand and better appreciate what makes being a gamedev, and we want to make an entertaining application in the process.
+There are plenty of similar existing projects out in the woodworks, and we hope to make our project unique by making the game with smooth, accessible controls in mind.
+
+
+Project Technology:
+We plan to use PyGame (https://realpython.com/pygame-a-primer) for development, with the project’s code open-sourced on GitHub.
+Various itch.io freeware gamedev assets may be used in the process of designing the linear level.
+We’ll find royalty-free music on YouTube, as neither of us are music majors.
+
+
+
+
+Project Planning:[b]
+We will communicate with each other through GitHub and SMS Messaging, presumably on every Friday or Saturday. This meet-up time is prone to change depending on our individual projects at the time. 
+To discuss progress and updates with the instructor, we will meet up on Tuesdays 10:15-10:30 am. 
+
+
+Both of us will work on the game engine/level design but Ayomide will specialize on art and music assets in particular.
+
+
+The calendar invite was created for the aforementioned meet-up.
+
+
+
+
+Project Challenges:
+Learning how to make a game along with crushing all bugs related to physics/collision will be the biggest challenge; the second biggest challenge will likely be the scope of the project-how to design the sandbox/linear levels in a reasonable timeframe.
+We will approach this challenge with copious amounts of YouTube video guides, and making changes to our project scope as we see fit-while communicating with the course instructor.
+
+
+Project Milestones:
+Milestones & Timelines:
+1. Learn How to create/design our game (1-3 weeks)
+2. Design the Cubeb interface (1 week)
+3. Coding for Cubeb (2 weeks)
+4. Finalize Cubeb (2 weeks)
+5. Final Presentation & Writeup (2 weeks)
+
+
+
+
+Meeting Notes:
+
+
+Meeting - 10/06/2021
+
+
+Today, we met via phone, and discussed:
+* What our specific project will look like
+* When we will meet regularly
+* Our project proposal
+[a]Original proposal template:
+https://docs.google.com/document/d/1onl7Kayu65OwroKx7_hs_E36PhSzOcm3LGoaVZszqio/edit?usp=sharing
+[b]What times will the team meet weekly to discuss progress and updates? Who will work on what?
+If possible, choose a 20 minute slot from the office hour time slots from the link below:
+https://calendar.google.com/calendar/u/0/selfsched?sstoken=UUJJcktIaW9fM2hnfGRlZmF1bHR8YTc5YTc3NDNhMjYyZDliZTE1Mjg5MWQwMzhlM2RmMWM
+Set up a calendar invite for the time slot using calendar.google.com and invite saurav.aryal@bison.howard.edu.
+
+
+Eg, We plan to meet weekly Tuesdays (10-10:20 am) to discuss updates and progress. The work will be divided: personA does task 1, personB does task 2, and personC does task 3. The calendar event has been created and the provided email has been invited.
