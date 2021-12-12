@@ -21,26 +21,34 @@ FPS = 60
 # Defining game variables
 GRAVITY = 0.75
 
-# Defining player action variables
+#define player action variables
 moving_left = False
 moving_right = False
-jumped_up = False
 shoot = False
+grenade = False
+grenade_thrown = False
 
-# Load images
+
+#load images
+#bullet
 bullet_img = pygame.image.load('RussShooter/img/icons/bullet.png').convert_alpha()
+#grenade
+grenade_img = pygame.image.load('RussShooter/img/icons/grenade.png').convert_alpha()
+
 
 #define colours
-BG = (50, 50, 100)
+BG = (144, 201, 120)
+RED = (255, 0, 0)
 WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
 def draw_bg():
     screen.fill(BG)
-    pygame.draw.line(screen, WHITE, (0, 300), (SCREEN_WIDTH, 300))
+    pygame.draw.line(screen, RED, (0, 300), (SCREEN_WIDTH, 300))
 
 
 class Soldier(pygame.sprite.Sprite):
-    def __init__(self, char_type, x, y, scale, speed, ammo):
+    def __init__(self, char_type, x, y, scale, speed, ammo, grenades):
         pygame.sprite.Sprite.__init__(self)
         self.alive = True
         self.char_type = char_type
@@ -48,6 +56,7 @@ class Soldier(pygame.sprite.Sprite):
         self.ammo = ammo
         self.start_ammo = ammo
         self.shoot_cooldown = 0
+        self.grenades = grenades
         self.health = 100
         self.max_health = self.health
         self.direction = 1
@@ -201,13 +210,44 @@ class Bullet(pygame.sprite.Sprite):
 
 
 
+class Grenade(pygame.sprite.Sprite):
+    def __init__(self, x, y, direction):
+        pygame.sprite.Sprite.__init__(self)
+        self.timer = 100
+        self.vel_y = -11
+        self.speed = 7
+        self.image = grenade_img
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+        self.direction = direction
+
+    def update(self):
+        self.vel_y += GRAVITY
+        dx = self.direction * self.speed
+        dy = self.vel_y
+
+        #check collision with floor
+        if self.rect.bottom + dy > 300:
+            dy = 300 - self.rect.bottom
+            self.speed = 0
+
+        #check collision with walls
+        if self.rect.left + dx < 0 or self.rect.right + dx > SCREEN_WIDTH:
+            self.direction *= -1
+            dx = self.direction * self.speed
+
+        #update grenade position
+        self.rect.x += dx
+        self.rect.y += dy
+
+
 #create sprite groups
 bullet_group = pygame.sprite.Group()
+grenade_group = pygame.sprite.Group()
 
 
-
-player = Soldier('player', 200, 200, 3, 5, 20)
-enemy = Soldier('enemy', 400, 200, 3, 5, 20)
+player = Soldier('player', 200, 200, 3, 5, 20, 5)
+enemy = Soldier('enemy', 400, 200, 3, 5, 20, 0)
 
 
 
@@ -226,7 +266,9 @@ while run:
 
     #update and draw groups
     bullet_group.update()
+    grenade_group.update()
     bullet_group.draw(screen)
+    grenade_group.draw(screen)
 
 
     #update player actions
@@ -234,6 +276,14 @@ while run:
         #shoot bullets
         if shoot:
             player.shoot()
+        #throw grenades
+        elif grenade and grenade_thrown == False and player.grenades > 0:
+            grenade = Grenade(player.rect.centerx + (0.5 * player.rect.size[0] * player.direction),\
+                        player.rect.top, player.direction)
+            grenade_group.add(grenade)
+            #reduce grenades
+            player.grenades -= 1
+            grenade_thrown = True
         if player.in_air:
             player.update_action(2)#2: jump
         elif moving_left or moving_right:
@@ -255,6 +305,8 @@ while run:
                 moving_right = True
             if event.key == pygame.K_SPACE:
                 shoot = True
+            if event.key == pygame.K_q:
+                grenade = True
             if event.key == pygame.K_w and player.alive:
                 player.jump = True
             if event.key == pygame.K_ESCAPE:
@@ -269,6 +321,12 @@ while run:
                 moving_right = False
             if event.key == pygame.K_SPACE:
                 shoot = False
+            if event.key == pygame.K_q:
+                grenade = False
+                grenade_thrown = False
+
+
+
 
 
     pygame.display.update()
@@ -279,8 +337,8 @@ pygame.quit()
 # tile_size = 50
 
 # #load images
-# sun_img = pygame.image.load('RussShooter/img/sun.png')
-# bg_img = pygame.image.load('RussShooter/img/sky.png')
+# sun_img = pygame.image.load('RussShooter/RussShooter/img/sun.png')
+# bg_img = pygame.image.load('RussShooter/RussShooter/img/sky.png')
 
 # def draw_grid():
 #     for line in range(0, 20):
@@ -292,8 +350,8 @@ pygame.quit()
 #         self.tile_list = []
 
 #         #load images
-#         dirt_img = pygame.image.load('RussShooter/img/dirt.png')
-#         grass_img = pygame.image.load('RussShooter/img/grass.png')
+#         dirt_img = pygame.image.load('RussShooter/RussShooter/img/dirt.png')
+#         grass_img = pygame.image.load('RussShooter/RussShooter/img/grass.png')
 
 #         row_count = 0
 #         for row in data:
