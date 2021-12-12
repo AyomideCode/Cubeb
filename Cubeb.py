@@ -7,11 +7,11 @@ from pygame.locals import *
 
 pygame.init()
 
-screen_height = 720
-screen_width = int(screen_height * 1.77777777778)
+SCREEN_HEIGHT = 720
+SCREEN_WIDTH = int(SCREEN_HEIGHT * 1.77777777778)
 
 
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Cubeb (BETA)') # Cubeb, a PyGame group project made for Computer Science II (Python) @ Howard University [CSCI 136-02 Fall 2021, Group #14]
 
 # Setting framerate here
@@ -25,23 +25,31 @@ GRAVITY = 0.75
 moving_left = False
 moving_right = False
 jumped_up = False
+shoot = False
+
+# Load images
+bullet_img = pygame.image.load('RussShooter/img/icons/bullet.png').convert_alpha()
 
 #define colours
 BG = (50, 50, 100)
-RED = (255, 0, 0)
+WHITE = (255, 255, 255)
 
 def draw_bg():
     screen.fill(BG)
-    pygame.draw.line(screen, RED, (0, 300), (screen_width, 300))
+    pygame.draw.line(screen, WHITE, (0, 300), (SCREEN_WIDTH, 300))
 
 
-
-class Character(pygame.sprite.Sprite):
-    def __init__(self, char_type, x, y, scale, speed):
+class Soldier(pygame.sprite.Sprite):
+    def __init__(self, char_type, x, y, scale, speed, ammo):
         pygame.sprite.Sprite.__init__(self)
         self.alive = True
         self.char_type = char_type
         self.speed = speed
+        self.ammo = ammo
+        self.start_ammo = ammo
+        self.shoot_cooldown = 0
+        self.health = 100
+        self.max_health = self.health
         self.direction = 1
         self.vel_y = 0
         self.jump = False
@@ -53,14 +61,14 @@ class Character(pygame.sprite.Sprite):
         self.update_time = pygame.time.get_ticks()
         
         #load all images for the players
-        animation_types = ['Idle', 'Run', 'Jump']
+        animation_types = ['Idle', 'Run', 'Jump', 'Death']
         for animation in animation_types:
             #reset temporary list of images
             temp_list = []
             #count number of files in the folder
-            num_of_frames = len(os.listdir(f'RussScrollingShooter/img/{self.char_type}/{animation}'))
+            num_of_frames = len(os.listdir(f'RussShooter/img/{self.char_type}/{animation}'))
             for i in range(num_of_frames):
-                img = pygame.image.load(f'RussScrollingShooter/img/{self.char_type}/{animation}/{i}.png')
+                img = pygame.image.load(f'RussShooter/img/{self.char_type}/{animation}/{i}.png').convert_alpha()
                 img = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
@@ -68,6 +76,14 @@ class Character(pygame.sprite.Sprite):
         self.image = self.animation_list[self.action][self.frame_index]
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
+
+
+    def update(self):
+        self.update_animation()
+        self.check_alive()
+        #update cooldown
+        if self.shoot_cooldown > 0:
+            self.shoot_cooldown -= 1
 
 
     def move(self, moving_left, moving_right):
@@ -107,6 +123,15 @@ class Character(pygame.sprite.Sprite):
         self.rect.y += dy
 
 
+    def shoot(self):
+        if self.shoot_cooldown == 0 and self.ammo > 0:
+            self.shoot_cooldown = 20
+            bullet = Bullet(self.rect.centerx + (0.6 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
+            bullet_group.add(bullet)
+            #reduce ammo
+            self.ammo -= 1
+
+
     def update_animation(self):
         #update animation
         ANIMATION_COOLDOWN = 100
@@ -118,7 +143,10 @@ class Character(pygame.sprite.Sprite):
             self.frame_index += 1
         #if the animation has run out the reset back to the start
         if self.frame_index >= len(self.animation_list[self.action]):
-            self.frame_index = 0
+            if self.action == 3:
+                self.frame_index = len(self.animation_list[self.action]) - 1
+            else:
+                self.frame_index = 0
 
 
 
@@ -132,13 +160,54 @@ class Character(pygame.sprite.Sprite):
 
 
 
+    def check_alive(self):
+        if self.health <= 0:
+            self.health = 0
+            self.speed = 0
+            self.alive = False
+            self.update_action(3)
+
+
     def draw(self):
         screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
 
 
 
-player = Character('player', 200, 200, 3, 5)
-enemy = Character('enemy', 400, 200, 3, 5)
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, x, y, direction):
+        pygame.sprite.Sprite.__init__(self)
+        self.speed = 10
+        self.image = bullet_img
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+        self.direction = direction
+
+    def update(self):
+        #move bullet
+        self.rect.x += (self.direction * self.speed)
+        #check if bullet has gone off screen
+        if self.rect.right < 0 or self.rect.left > SCREEN_WIDTH:
+            self.kill()
+
+        #check collision with characters
+        if pygame.sprite.spritecollide(player, bullet_group, False):
+            if player.alive:
+                player.health -= 5
+                self.kill()
+        if pygame.sprite.spritecollide(enemy, bullet_group, False):
+            if enemy.alive:
+                enemy.health -= 25
+                self.kill()
+
+
+
+#create sprite groups
+bullet_group = pygame.sprite.Group()
+
+
+
+player = Soldier('player', 200, 200, 3, 5, 20)
+enemy = Soldier('enemy', 400, 200, 3, 5, 20)
 
 
 
@@ -149,13 +218,22 @@ while run:
 
     draw_bg()
 
-    player.update_animation()
+    player.update()
     player.draw()
+
+    enemy.update()
     enemy.draw()
+
+    #update and draw groups
+    bullet_group.update()
+    bullet_group.draw(screen)
 
 
     #update player actions
     if player.alive:
+        #shoot bullets
+        if shoot:
+            player.shoot()
         if player.in_air:
             player.update_action(2)#2: jump
         elif moving_left or moving_right:
@@ -166,29 +244,31 @@ while run:
 
 
     for event in pygame.event.get():
-        # This allows me to press the X at the top right, to quit the game.
+        #quit game
         if event.type == pygame.QUIT:
             run = False
-        # This is for keyboard input for when the keys are pressed; currently using WASD.
-        if event.type == pygame.KEYDOWN and player.alive:
+        #keyboard presses
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 moving_left = True
             if event.key == pygame.K_d:
                 moving_right = True
-            if event.key == pygame.K_w:
+            if event.key == pygame.K_SPACE:
+                shoot = True
+            if event.key == pygame.K_w and player.alive:
                 player.jump = True
             if event.key == pygame.K_ESCAPE:
                 run = False
 
 
-        # This is for keyboard input for when the keys are released; currently using WASD.
+        #keyboard button released
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
                 moving_left = False
             if event.key == pygame.K_d:
                 moving_right = False
-
-
+            if event.key == pygame.K_SPACE:
+                shoot = False
 
 
     pygame.display.update()
@@ -199,12 +279,12 @@ pygame.quit()
 # tile_size = 50
 
 # #load images
-# sun_img = pygame.image.load('img/sun.png')
-# bg_img = pygame.image.load('img/sky.png')
+# sun_img = pygame.image.load('RussShooter/img/sun.png')
+# bg_img = pygame.image.load('RussShooter/img/sky.png')
 
 # def draw_grid():
 #     for line in range(0, 20):
-#         pygame.draw.line(screen, (255, 255, 255), (0, line * tile_size), (screen_width, line * tile_size))
+#         pygame.draw.line(screen, (255, 255, 255), (0, line * tile_size), (SCREEN_WIDTH, line * tile_size))
 #         pygame.draw.line(screen, (255, 255, 255), (line * tile_size, 0), (line * tile_size, screen_height))
 
 # class World():
@@ -212,8 +292,8 @@ pygame.quit()
 #         self.tile_list = []
 
 #         #load images
-#         dirt_img = pygame.image.load('img/dirt.png')
-#         grass_img = pygame.image.load('img/grass.png')
+#         dirt_img = pygame.image.load('RussShooter/img/dirt.png')
+#         grass_img = pygame.image.load('RussShooter/img/grass.png')
 
 #         row_count = 0
 #         for row in data:
