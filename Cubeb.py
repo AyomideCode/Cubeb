@@ -1,8 +1,11 @@
+# Cubeb, a PyGame group project made for Computer Science II (Python) @ Howard University [CSCI 136-02 Fall 2021, Group #14]
+
 # In the first demo, I copy-pasted the Coding with Russ platformer tutorial Part 1, for learning purposes (youtube.com/watch?v=Ongc4EVqRjo)
 # In this demo and moving forward, I will use Russ's Scrolling Shooter Game tutorial as a backbone for my game (youtube.com/playlist?list=PLjcN1EyupaQm20hlUE11y9y8EY2aXLpnv)
 
 import pygame
 import os
+import random
 from pygame.locals import *
 
 pygame.init()
@@ -12,7 +15,7 @@ SCREEN_WIDTH = int(SCREEN_HEIGHT * 1.77777777778)
 
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Cubeb (BETA)') # Cubeb, a PyGame group project made for Computer Science II (Python) @ Howard University [CSCI 136-02 Fall 2021, Group #14]
+pygame.display.set_caption('Cubeb (BETA)') 
 
 # Setting framerate here
 clock = pygame.time.Clock()
@@ -65,6 +68,7 @@ def draw_bg():
     screen.fill(BG)
     pygame.draw.line(screen, RED, (0, 300), (SCREEN_WIDTH, 300))
 
+
 class Soldier(pygame.sprite.Sprite):
     def __init__(self, char_type, x, y, scale, speed, ammo, grenades):
         pygame.sprite.Sprite.__init__(self)
@@ -86,6 +90,11 @@ class Soldier(pygame.sprite.Sprite):
         self.frame_index = 0
         self.action = 0
         self.update_time = pygame.time.get_ticks()
+        #ai specific variables
+        self.move_counter = 0
+        self.vision = pygame.Rect(0, 0, 150, 20)
+        self.idling = False
+        self.idling_counter = 0
         
         #load all images for the players
         animation_types = ['Idle', 'Run', 'Jump', 'Death']
@@ -153,10 +162,48 @@ class Soldier(pygame.sprite.Sprite):
     def shoot(self):
         if self.shoot_cooldown == 0 and self.ammo > 0:
             self.shoot_cooldown = 20
-            bullet = Bullet(self.rect.centerx + (0.6 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
+            bullet = Bullet(self.rect.centerx + (0.75 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
             bullet_group.add(bullet)
             #reduce ammo
             self.ammo -= 1
+
+
+    def ai(self):
+        if self.alive and player.alive:
+            if self.idling == False and random.randint(1, 200) == 1:
+                self.update_action(0)#0: idle
+                self.idling = True
+                self.idling_counter = 50
+            #check if the ai in near the player
+            if self.vision.colliderect(player.rect):
+                #stop running and face the player
+                self.update_action(0)#0: idle
+                #shoot
+                self.shoot()
+            else:
+                if self.idling == False:
+                    if self.direction == 1:
+                        ai_moving_right = True
+                    else:
+                        ai_moving_right = False
+                    ai_moving_left = not ai_moving_right
+                    self.move(ai_moving_left, ai_moving_right)
+                    self.update_action(1)#1: run
+                    self.move_counter += 1
+                    #update ai vision as the enemy moves
+                    self.vision.center = (self.rect.centerx + 75 * self.direction, self.rect.centery)
+
+                    if self.move_counter > TILE_SIZE:
+                        self.direction *= -1
+                        self.move_counter *= -1
+                else:
+                    self.idling_counter -= 1
+                    if self.idling_counter <= 0:
+                        self.idling = False
+
+
+
+
 
 
     def update_animation(self):
@@ -368,12 +415,12 @@ item_box_group.add(item_box)
 
 
 
-player = Soldier('player', 200, 200, 3, 5, 20, 5)
+player = Soldier('player', 200, 200, 1.65, 5, 20, 5)
 health_bar = HealthBar(10, 10, player.health, player.health)
 
 
-enemy = Soldier('enemy', 400, 200, 3, 5, 20, 0)
-enemy2 = Soldier('enemy', 300, 300, 3, 5, 20, 0)
+enemy = Soldier('enemy', 500, 200, 1.65, 2, 20, 0)
+enemy2 = Soldier('enemy', 300, 200, 1.65, 2, 20, 0)
 enemy_group.add(enemy)
 enemy_group.add(enemy2)
 
@@ -400,6 +447,7 @@ while run:
     player.draw()
 
     for enemy in enemy_group:
+        enemy.ai()
         enemy.update()
         enemy.draw()
 
