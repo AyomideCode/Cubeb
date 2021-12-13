@@ -74,6 +74,7 @@ New tiles
 	- Spikes: halves the player's health
 
 Melee attacks that change depending on the direction held (requires new added movement buttons, sprites & collision checks...)
+	- Make AI capable of meleeing you too, but with a predictable windup before the attack (assuming melee would do a lot of damage)
 
 Weapon upgrades
 	- The more enemies you kill, the higher your level; 
