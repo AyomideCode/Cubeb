@@ -18,7 +18,6 @@ Assets
         - Replace background and add parallax to the new one ✔
         - Replace tileset ✔
         
-
 Stage select and options on main menu	
 	- Options menu
 		- Make graphic (or open text file) showing all possible button/key inputs
@@ -48,3 +47,5 @@ New tiles
 	- Coin : Collectable, adds to UI
 	- Spring/bouncepad: boosts the player vertically.
 	- Spike tile: kills the player
+
+Create variance on sound effects
