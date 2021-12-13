@@ -51,8 +51,8 @@ grenade_thrown = False
 
 
 #load music and sounds
-pygame.mixer.music.load('RussShooter/audio/music2.mp3')
-pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.load('/audio/8BitAdventure.mp3')
+pygame.mixer.music.set_volume(0.1)
 pygame.mixer.music.play(-1, 0.0, 5000)
 jump_fx = pygame.mixer.Sound('RussShooter/audio/jump.wav')
 jump_fx.set_volume(0.05)
@@ -696,6 +696,8 @@ while run:
         if exit_button.draw(screen):
             run = False
     else:
+        #increase the audio volume
+        pygame.mixer.music.set_volume(0.1)
         #update background
         draw_bg()
         #draw world map

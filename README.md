@@ -8,6 +8,7 @@ Hello! This is Cubeb, soon being the repository for a 2D platformer game made us
 TO-DO before 6 AM:
 
 Assets
+    - Music
 	- Sound effects
 	- Visual effects
 	- Sprites
