@@ -11,12 +11,12 @@ Assets
     - Music ✔
 	- Sound effects ✔
 	- Sprites
-        - Replace bullet with kunai ✔
+        - Replace bullets with kunai ✔
         - Replace player soldier with ninja girl ✔
 		- Replace enemy soldier with ninja guy ✔
-        - Replace grenade with laser bomb 
+        - Replace grenade with laser bomb ✔
         - Replace background and add parallax to the new one ✔
-        - Replace tileset 
+        - Replace tileset ✔
         
 
 Stage select and options on main menu	
