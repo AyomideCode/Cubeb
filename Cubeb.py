@@ -33,7 +33,7 @@ ROWS = 16
 COLS = 150
 TILE_SIZE = SCREEN_HEIGHT // ROWS
 TILE_TYPES = 21
-MAX_LEVELS = 3
+MAX_LEVELS = 2 #it is set at 2 because level 3 has no win condition or level design
 screen_scroll = 0
 bg_scroll = 0
 level = 1
@@ -144,9 +144,6 @@ def reset_level():
 
     return data
 
-
-
-
 class Soldier(pygame.sprite.Sprite):
     def __init__(self, char_type, x, y, scale, speed, ammo, grenades):
         pygame.sprite.Sprite.__init__(self)
@@ -220,7 +217,7 @@ class Soldier(pygame.sprite.Sprite):
 
         #jump
         if self.jump == True and self.in_air == False:
-            self.vel_y = -11
+            self.vel_y = -12
             self.jump = False
             self.in_air = True
 
@@ -812,31 +809,33 @@ while run:
         if event.type == pygame.QUIT:
             run = False
         #keyboard presses
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
+        #this allows compatibility with arrow keys/zxc, with wasd/jkl, and with numpad/123. an alternate playstyle with wasd/space/ctrl is also provided.
+        #very cluttered... might come back later to clean up
+        if event.type == pygame.KEYDOWN and player.alive:
+            if (event.key == pygame.K_a) | (event.key == pygame.K_KP1) | (event.key == pygame.K_LEFT):
                 moving_left = True
-            if event.key == pygame.K_d:
+            if (event.key == pygame.K_d) | (event.key == pygame.K_KP3) | (event.key == pygame.K_RIGHT):
                 moving_right = True
-            if event.key == pygame.K_SPACE:
+            if (event.key == pygame.K_k) | (event.key == pygame.K_x) | (event.key == pygame.K_2): #make a control for left mouse button
                 shoot = True
-            if event.key == pygame.K_q:
+            if (event.key == pygame.K_LCTRL) | (event.key == pygame.K_q) | (event.key == pygame.K_c) | (event.key == pygame.K_3) | (event.key == pygame.K_l): #make a control for right mouse button
                 grenade = True
-            if event.key == pygame.K_w and player.alive:
+            if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
                 player.jump = True
-                jump_fx.play()
+                jump_fx.play() #find a way to keep the player from activating the sfx every press
             if event.key == pygame.K_ESCAPE:
-                run = False
+                continue
 
 
         #keyboard button released
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_a:
+            if (event.key == pygame.K_a) | (event.key == pygame.K_KP1) | (event.key == pygame.K_LEFT):
                 moving_left = False
-            if event.key == pygame.K_d:
+            if (event.key == pygame.K_d) | (event.key == pygame.K_KP3) | (event.key == pygame.K_RIGHT):
                 moving_right = False
-            if event.key == pygame.K_SPACE:
+            if (event.key == pygame.K_k) | (event.key == pygame.K_x) | (event.key == pygame.K_2): #make a control for left mouse button
                 shoot = False
-            if event.key == pygame.K_q:
+            if (event.key == pygame.K_LCTRL) | (event.key == pygame.K_q) | (event.key == pygame.K_c) | (event.key == pygame.K_3) | (event.key == pygame.K_l): #make a control for right mouse button
                 grenade = False
                 grenade_thrown = False
 

@@ -49,3 +49,7 @@ New tiles
 	- Spike tile: kills the player
 
 Create variance on sound effects
+
+Melee attacks
+
+Fix jump sound playing mid-jump
