@@ -56,9 +56,10 @@ pygame.mixer.music.set_volume(0.05)
 pygame.mixer.music.play(-1, 0.0, 5000)
 jump_fx = pygame.mixer.Sound('audio/jump.wav')
 jump_fx.set_volume(0.1)
-shot_fx = pygame.mixer.Sound(f'audio/shot{random.randint(1, 3)}.wav')
+shot_grenade_fx_randint = random.randint(1, 3)
+shot_fx = pygame.mixer.Sound(f'audio/shot{shot_grenade_fx_randint}.wav')
 shot_fx.set_volume(0.1)
-grenade_fx = pygame.mixer.Sound(f'audio/grenade{random.randint(1, 3)}.wav')
+grenade_fx = pygame.mixer.Sound(f'audio/grenade{shot_grenade_fx_randint}.wav')
 grenade_fx.set_volume(0.1)
 
 
@@ -293,6 +294,8 @@ class Soldier(pygame.sprite.Sprite):
             #reduce ammo
             self.ammo -= 1
             shot_fx.play()
+            
+
 
 
     def ai(self):
@@ -581,12 +584,12 @@ class Grenade(pygame.sprite.Sprite):
             explosion = Explosion(self.rect.x, self.rect.y, 0.5)
             explosion_group.add(explosion)
             #do damage to anyone that is nearby
-            if abs(self.rect.centerx - player.rect.centerx) < TILE_SIZE * 2 and \
-                abs(self.rect.centery - player.rect.centery) < TILE_SIZE * 2:
+            if abs(self.rect.centerx - player.rect.centerx) < int(TILE_SIZE * 1.25) and \
+                abs(self.rect.centery - player.rect.centery) < int(TILE_SIZE * 1.25):
                 player.health -= 50
             for enemy in enemy_group:
-                if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 2 and \
-                    abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 2:
+                if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 3 and \
+                    abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 3:
                     enemy.health -= 50
 
 
@@ -595,8 +598,8 @@ class Explosion(pygame.sprite.Sprite):
     def __init__(self, x, y, scale):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
-        for num in range(1, 6):
-            img = pygame.image.load(f'RussShooter/img/explosion/exp{num}.png').convert_alpha()
+        for num in range(256, 311):
+            img = pygame.image.load(f'img/explosion/laser_cross_explosion_separated_{num}.png').convert_alpha()
             img = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
             self.images.append(img)
         self.frame_index = 0
@@ -610,7 +613,7 @@ class Explosion(pygame.sprite.Sprite):
         #scroll
         self.rect.x += screen_scroll
 
-        EXPLOSION_SPEED = 4
+        EXPLOSION_SPEED = 1
         #update explosion amimation
         self.counter += 1
 
