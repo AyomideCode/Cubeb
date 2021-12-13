@@ -31,8 +31,8 @@ Alternate keybinding support (allow multiple input methods to do the same action
 Controller support (d-pad and face buttons) ✔
 
 Polish jump physics
-	- Fix jump sound playing mid-jump
-	- Allow changing jump altitude depending on how long jump button is held
+	- Fix jump sound playing while in mid-air ✔
+	- Allow changing jump altitude and gravity, depending on how long the jump input is held ✔
 
 Stretchable screen and fullscreen with Alt + Enter
 
@@ -44,27 +44,28 @@ Tutorial level
 
 
 
-STRETCH FEATURES (For added polish):
+STRETCH FEATURES (For added polish/better game-feel):
 
-Polish sound effects
-	- Add separate player & enemy death SFX
+Polish the sound effect calls
+	- Add separate player & enemy running and death SFX
 	- Add variance to the jump/shoot/grenade/death SFX
-
-Add two harder levels after the first three
-	- Design one around hard platforming alone, then design one around hard platforming + enemies
 
 Stage select and options on main menu + pause menu + death screen
 	- Options menu
 		- Make graphic (or open text file) showing all possible button/key inputs
 		- Change resolution/fullscreen
+		
+Add two levels to play after the first three
+	- Design one around hard platforming alone, then design one around hard platforming + enemies
 
-Either make boxes do something, like turn into Ammo/HP, or remove them entirely
+Add Game Over screen once player has beaten all levels
+	- Tally the amounts of Time/HP/Ammo/Grenades used, both per level and in total
 
-Add Double Jump, offering half of the first jump's verticality
-
-Add Run button with Shift/RT
-	- Give small increase to vertical velocity if running and jumping at the same time
-	- Make a toggleable option for running automatically or not
+After level 5, offer two toggleable movement options:
+	- Double Jump, offering half of the first jump's verticality
+	- Run with Shift/RT
+		- Give small increase to vertical velocity if running and jumping at the same time
+		- Make a toggleable option for running automatically or not
 
 New tiles
 	- Double jump refiller: lets the player jump again once collected
@@ -77,3 +78,5 @@ Melee attacks that change properties depending on the direction held (requires n
 Weapon upgrades
 	- The more enemies you kill, your level increases and is shown at top-right
 	- Each level increases damage output, size of bullets/explosions, and max HP
+
+2 more levels that expand upon the movement options/tiles/melee/upgrades

@@ -163,6 +163,7 @@ class Soldier(pygame.sprite.Sprite):
         self.vel_y = 0
         self.jump = False
         self.in_air = True
+        self.jump_released = False
         self.flip = False
         self.animation_list = []
         self.frame_index = 0
@@ -220,10 +221,14 @@ class Soldier(pygame.sprite.Sprite):
 
         #jump
         if self.jump == True and self.in_air == False:
-            jump_fx.play() #find a way to keep the player from activating the sfx every press
+            jump_fx.play()
             self.vel_y = -12
             self.jump = False
             self.in_air = True
+        #jump_released: this variable and its manipulation allows the player to short-hop and manipulate their gravity as they jump.
+        if self.jump_released == True:
+            self.vel_y += 3
+            self.jump_released = False
 
         #apply gravity
         self.vel_y += GRAVITY
@@ -820,13 +825,12 @@ while run:
                 moving_left = True
             if (event.key == pygame.K_d) | (event.key == pygame.K_KP3) | (event.key == pygame.K_RIGHT):
                 moving_right = True
-            if (event.key == pygame.K_k) | (event.key == pygame.K_x) | (event.key == pygame.K_2): #make a control for left mouse button
+            if (event.key == pygame.K_k) | (event.key == pygame.K_x) | (event.key == pygame.K_2):
                 shoot = True
-            if (event.key == pygame.K_LCTRL) | (event.key == pygame.K_q) | (event.key == pygame.K_c) | (event.key == pygame.K_3) | (event.key == pygame.K_l): #make a control for right mouse button
+            if (event.key == pygame.K_LCTRL) | (event.key == pygame.K_q) | (event.key == pygame.K_c) | (event.key == pygame.K_3) | (event.key == pygame.K_l):
                 grenade = True
             if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
                 player.jump = True
-                # jump_fx.play() #find a way to keep the player from activating the sfx every press
 
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -838,11 +842,16 @@ while run:
                 moving_left = False
             if (event.key == pygame.K_d) | (event.key == pygame.K_KP3) | (event.key == pygame.K_RIGHT):
                 moving_right = False
-            if (event.key == pygame.K_k) | (event.key == pygame.K_x) | (event.key == pygame.K_2): #make a control for left mouse button
+            if (event.key == pygame.K_k) | (event.key == pygame.K_x) | (event.key == pygame.K_2):
                 shoot = False
-            if (event.key == pygame.K_LCTRL) | (event.key == pygame.K_q) | (event.key == pygame.K_c) | (event.key == pygame.K_3) | (event.key == pygame.K_l): #make a control for right mouse button
+            if (event.key == pygame.K_LCTRL) | (event.key == pygame.K_q) | (event.key == pygame.K_c) | (event.key == pygame.K_3) | (event.key == pygame.K_l):
                 grenade = False
                 grenade_thrown = False
+            
+            if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
+                player.jump_released = True
+
+
 
 
         #event handler for controller buttons; d-pad for movement, A is jump, X is shoot, B is grenade
@@ -857,7 +866,6 @@ while run:
                 grenade = True
             if (event.button == pygame.CONTROLLER_BUTTON_DPAD_UP) | (event.button == pygame.CONTROLLER_BUTTON_A):
                 player.jump = True
-                # jump_fx.play() #find a way to keep the player from activating the sfx every press
 
 
         #event handler for controller button releases
