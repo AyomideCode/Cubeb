@@ -880,6 +880,8 @@ while run:
             if (event.button == pygame.CONTROLLER_BUTTON_B):
                 grenade = False
                 grenade_thrown = False
+            if (event.button == pygame.CONTROLLER_BUTTON_DPAD_UP) | (event.button == pygame.CONTROLLER_BUTTON_A):
+                player.jump_released = True
 
 
     pygame.display.update()

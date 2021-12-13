@@ -38,6 +38,8 @@ Polish jump physics ✔
 
 Stretchable screen and fullscreen with Alt + Enter
 
+Fix the screen scrolling too far and causing clipping
+
 Tutorial level
 
 	- Gradually let the player explore the game mechanics as the level goes, without need for signs or prompts
