@@ -220,6 +220,7 @@ class Soldier(pygame.sprite.Sprite):
 
         #jump
         if self.jump == True and self.in_air == False:
+            jump_fx.play() #find a way to keep the player from activating the sfx every press
             self.vel_y = -12
             self.jump = False
             self.in_air = True
@@ -704,7 +705,7 @@ while run:
             run = False
     else:
         #increase the audio volume to 0.1
-        pygame.mixer.music.set_volume(0)
+        pygame.mixer.music.set_volume(0.1)
         #update background
         draw_bg()
         #draw world map
@@ -825,7 +826,7 @@ while run:
                 grenade = True
             if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
                 player.jump = True
-                jump_fx.play() #find a way to keep the player from activating the sfx every press
+                # jump_fx.play() #find a way to keep the player from activating the sfx every press
 
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -856,7 +857,7 @@ while run:
                 grenade = True
             if (event.button == pygame.CONTROLLER_BUTTON_DPAD_UP) | (event.button == pygame.CONTROLLER_BUTTON_A):
                 player.jump = True
-                jump_fx.play() #find a way to keep the player from activating the sfx every press
+                # jump_fx.play() #find a way to keep the player from activating the sfx every press
 
 
         #event handler for controller button releases
