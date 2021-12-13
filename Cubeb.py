@@ -79,7 +79,7 @@ for x in range(TILE_TYPES):
     img = pygame.transform.scale(img, (TILE_SIZE, TILE_SIZE))
     img_list.append(img)
 #bullet
-bullet_img = pygame.image.load('RussShooter/img/icons/bullet.png').convert_alpha()
+bullet_img = pygame.image.load('img/icons/kunai.png').convert_alpha()
 #grenade
 grenade_img = pygame.image.load('RussShooter/img/icons/grenade.png').convert_alpha()
 #pick up boxes
@@ -174,9 +174,9 @@ class Soldier(pygame.sprite.Sprite):
             #reset temporary list of images
             temp_list = []
             #count number of files in the folder
-            num_of_frames = len(os.listdir(f'RussShooter/img/{self.char_type}/{animation}'))
+            num_of_frames = len(os.listdir(f'img/{self.char_type}/{animation}'))
             for i in range(num_of_frames):
-                img = pygame.image.load(f'RussShooter/img/{self.char_type}/{animation}/{i}.png').convert_alpha()
+                img = pygame.image.load(f'img/{self.char_type}/{animation}/{i}.png').convert_alpha()
                 img = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)

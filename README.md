@@ -10,10 +10,13 @@ TO-DO before 6 AM:
 Assets
     - Music ✔
 	- Sound effects ✔
-	- Visual effects 
 	- Sprites
-		- Replace grenade with bomb
-        - Replace soldiers with ninjas
+        - Replace bullet with kunai ✔
+        - Replace player soldier with ninja girl ✔
+		- Replace enemy soldier with ninja guy ✔
+        - Replace grenade with bomb
+        - Replace background and add parallax to the new one
+        
 
 Stage select and options on main menu	
 	- Options menu
