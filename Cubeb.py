@@ -4,6 +4,7 @@
 # In this demo and moving forward, I will use Russ's Scrolling Shooter Game tutorial as a backbone for my game (youtube.com/playlist?list=PLjcN1EyupaQm20hlUE11y9y8EY2aXLpnv)
 
 import pygame
+import sys
 from pygame import mixer
 import os
 import random
@@ -19,9 +20,9 @@ joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_coun
 
 SCREEN_HEIGHT = 720
 SCREEN_WIDTH = int(SCREEN_HEIGHT * 1.77777777778)
-
-
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+monitor_size = [pygame.display.Info().current_w, pygame.display.Info().current_h]
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+is_fullscreen = False
 pygame.display.set_caption('Cubeb (BETA)') 
 
 # Setting framerate here
@@ -817,7 +818,22 @@ while run:
         #quit game with the X at the top right
         if event.type == pygame.QUIT:
             run = False
-
+            
+        #this code allows both a resizable window, and fullscreen; kudos to DaFluffyPotato on YouTube for the code: https://pastebin.com/hH4H1eRT
+        if event.type == VIDEORESIZE:
+            if not is_fullscreen:
+                screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+            if (event.key == K_f) | (event.key == K_RETURN):
+                is_fullscreen = not is_fullscreen
+                if is_fullscreen:
+                    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+                else:
+                    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+        
         #event handler for keyboard presses
         #this allows compatibility with arrow keys/zxc, with wasd/jkl, and with numpad/123. an alternate playstyle with wasd/space/ctrl is also provided.
         #very cluttered... might come back later to clean up

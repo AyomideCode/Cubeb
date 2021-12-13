@@ -5,10 +5,13 @@ Hello! This is Cubeb, soon being the repository for a 2D platformer game made us
 
 The game is playable with arrow keys/zxc, wasd/jkl, numpad/123, and controller d-pad/face buttons.
 
-The application currently runs at a windowed 1280x720.
+The application runs and is built around a windowed 1280x720. 
+If you press F or Enter/Return, the game goes to fullscreen 720p.
+Press Enter/Return again to go back, or press Esc at any time to close the game.
 
 Left and Right Arrow keys do what you'd expect. 
 Up Arrow and Z map as jump, X maps as shoot, and C maps to your grenade.
+
 As of 12/13 7:30 AM, there are two currently playable levels; a third tutorial level is in the works. 
 
 [Project proposal: https://docs.google.com/document/d/1RulH314LERlbpVUxJNrRWT88P7ziuJKV94BrBrSf9gk/edit?usp=sharing ]
@@ -36,9 +39,11 @@ Polish jump physics ✔
 	- Fix jump sound playing while in mid-air ✔
 	- Allow changing jump altitude and gravity, depending on how long the jump input is held ✔
 
-Stretchable screen and fullscreen with Alt + Enter
+Fix crashes involving fullscreen with Alt + Enter ✔
 
-Fix the screen scrolling too far and causing clipping
+Fix the screen scrolling too far and causing clipping at the end of each level
+
+Add small movement acceleration that influences jump height
 
 Tutorial level
 
@@ -55,6 +60,7 @@ Polish the sound effect calls
 
 	- Add separate player & enemy running and death SFX
 	- Add variance to the jump/shoot/grenade/death SFX
+		- Add variance to grenade explosions
 
 Stage select and options on main menu, pause menu & death screen
 
@@ -89,10 +95,11 @@ New tiles
 Melee attacks that change depending on the direction held (requires new added movement buttons, sprites & collision checks...)
 	- Make AI capable of meleeing you too, but with a predictable windup before the attack (assuming melee would do a lot of damage)
 
-Weapon upgrades
+Level-up/score system
 
 	- The more enemies you kill, the higher your level 
 		- A meter for it will be shown at top-right
-	- Each level increases damage output, size of bullets/explosions, and max HP
+	- Each level increases movement speed, damage output, size of bullets/explosions, and max HP
+	- A score system that incentivises the player to fight enemies (add a score/combo counter at top right)
 
 2 more levels that expand upon the added movement options/tiles/melee/upgrades
