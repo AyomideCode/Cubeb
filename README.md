@@ -23,7 +23,10 @@ Stage select and options on main menu
 		- Make graphic (or open text file) showing all possible button/key inputs
 		- Change resolution/fullscreen
 
-Controller and alternate keybinding support (allow multiple input methods to do the same actions in-game)
+Alternate keybinding support (allow multiple input methods to do the same actions in-game) ✔
+
+X-input controller support
+D-input controller support
 
 Upon death (or by pausing by pressing Esc/Start), give option to restart, stage select, or exit game
 

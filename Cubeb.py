@@ -13,6 +13,8 @@ from pygame.locals import *
 
 pygame.init()
 mixer.init()
+pygame.joystick.init()
+
 
 SCREEN_HEIGHT = 720
 SCREEN_WIDTH = int(SCREEN_HEIGHT * 1.77777777778)
@@ -84,11 +86,11 @@ for x in range(TILE_TYPES):
 #bullet
 bullet_img = pygame.image.load('img/icons/kunai.png').convert_alpha()
 #grenade
-grenade_img = pygame.image.load('RussShooter/img/icons/grenade.png').convert_alpha()
+grenade_img = pygame.image.load('img/icons/grenade.png').convert_alpha()
 #pick up boxes
-health_box_img = pygame.image.load('RussShooter/img/icons/health_box.png').convert_alpha()
-ammo_box_img = pygame.image.load('RussShooter/img/icons/ammo_box.png').convert_alpha()
-grenade_box_img = pygame.image.load('RussShooter/img/icons/grenade_box.png').convert_alpha()
+health_box_img = pygame.image.load('img/icons/health_box.png').convert_alpha()
+ammo_box_img = pygame.image.load('img/icons/ammo_box.png').convert_alpha()
+grenade_box_img = pygame.image.load('img/icons/grenade_box.png').convert_alpha()
 item_boxes = {
     'Health'    : health_box_img,
     'Ammo'      : ammo_box_img,
@@ -274,7 +276,7 @@ class Soldier(pygame.sprite.Sprite):
 
         #update scroll based on player position
         if self.char_type == 'player':
-            if (self.rect.right > SCREEN_WIDTH - SCROLL_THRESH and bg_scroll < (world.level_length * TILE_SIZE) - SCREEN_WIDTH)\
+            if (self.rect.right > SCREEN_WIDTH - SCROLL_THRESH - 200 and bg_scroll < (world.level_length * TILE_SIZE) - SCREEN_WIDTH)\
                 or (self.rect.left < SCROLL_THRESH and bg_scroll > abs(dx)):
                 self.rect.x -= dx
                 screen_scroll = -dx
@@ -291,7 +293,6 @@ class Soldier(pygame.sprite.Sprite):
             #reduce ammo
             self.ammo -= 1
             shot_fx.play()
-            
 
 
 
@@ -583,11 +584,11 @@ class Grenade(pygame.sprite.Sprite):
             #do damage to anyone that is nearby
             if abs(self.rect.centerx - player.rect.centerx) < int(TILE_SIZE * 1.25) and \
                 abs(self.rect.centery - player.rect.centery) < int(TILE_SIZE * 1.25):
-                player.health -= 50
+                player.health -= 48
             for enemy in enemy_group:
                 if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 3 and \
                     abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 3:
-                    enemy.health -= 50
+                    enemy.health -= 99
 
 
 
@@ -649,8 +650,8 @@ class ScreenFade():
 
 
 #create screen fades
-intro_fade = ScreenFade(1, BLACK, 4)
-death_fade = ScreenFade(2, PINK, 4)
+intro_fade = ScreenFade(1, BLACK, 10)
+death_fade = ScreenFade(2, BLACK, 20)
 
 
 #create buttons
@@ -824,7 +825,7 @@ while run:
                 player.jump = True
                 jump_fx.play() #find a way to keep the player from activating the sfx every press
             if event.key == pygame.K_ESCAPE:
-                continue
+                pygame.quit()
 
 
         #keyboard button released
