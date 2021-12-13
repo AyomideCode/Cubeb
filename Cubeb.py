@@ -51,15 +51,15 @@ grenade_thrown = False
 
 
 #load music and sounds
-pygame.mixer.music.load('/audio/8BitAdventure.mp3')
-pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.load('audio/8BitAdventure.mp3')
+pygame.mixer.music.set_volume(0.05)
 pygame.mixer.music.play(-1, 0.0, 5000)
-jump_fx = pygame.mixer.Sound('RussShooter/audio/jump.wav')
-jump_fx.set_volume(0.05)
-shot_fx = pygame.mixer.Sound('RussShooter/audio/shot.wav')
-shot_fx.set_volume(0.05)
-grenade_fx = pygame.mixer.Sound('RussShooter/audio/grenade.wav')
-grenade_fx.set_volume(0.05)
+jump_fx = pygame.mixer.Sound('audio/jump.wav')
+jump_fx.set_volume(0.1)
+shot_fx = pygame.mixer.Sound(f'audio/shot{random.randint(1, 3)}.wav')
+shot_fx.set_volume(0.1)
+grenade_fx = pygame.mixer.Sound(f'audio/grenade{random.randint(1, 3)}.wav')
+grenade_fx.set_volume(0.1)
 
 
 #load images

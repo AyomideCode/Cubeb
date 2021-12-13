@@ -8,11 +8,12 @@ Hello! This is Cubeb, soon being the repository for a 2D platformer game made us
 TO-DO before 6 AM:
 
 Assets
-    - Music
-	- Sound effects
-	- Visual effects
+    - Music ✔
+	- Sound effects ✔
+	- Visual effects 
 	- Sprites
 		- Replace grenade with bomb
+        - Replace soldiers with ninjas
 
 Stage select and options on main menu	
 	- Options menu
