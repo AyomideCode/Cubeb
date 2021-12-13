@@ -30,7 +30,7 @@ FPS = 60
 
 #define game variables
 GRAVITY = 0.75
-SCROLL_THRESH = 200
+SCROLL_THRESH = SCREEN_WIDTH // 2
 ROWS = 16
 COLS = 150
 TILE_SIZE = SCREEN_HEIGHT // ROWS
@@ -276,7 +276,7 @@ class Soldier(pygame.sprite.Sprite):
 
         #update scroll based on player position
         if self.char_type == 'player':
-            if (self.rect.right > SCREEN_WIDTH - SCROLL_THRESH - 200 and bg_scroll < (world.level_length * TILE_SIZE) - SCREEN_WIDTH)\
+            if (self.rect.right > SCREEN_WIDTH - SCROLL_THRESH and bg_scroll < (world.level_length * TILE_SIZE) - SCREEN_WIDTH)\
                 or (self.rect.left < SCROLL_THRESH and bg_scroll > abs(dx)):
                 self.rect.x -= dx
                 screen_scroll = -dx
@@ -651,7 +651,7 @@ class ScreenFade():
 
 #create screen fades
 intro_fade = ScreenFade(1, BLACK, 10)
-death_fade = ScreenFade(2, BLACK, 20)
+death_fade = ScreenFade(2, BLACK, 15)
 
 
 #create buttons
