@@ -73,10 +73,11 @@ New tiles
 	- Bouncepad: boosts the player vertically
 	- Spikes: halves the player's health
 
-Melee attacks that change properties depending on the direction held (requires new added movement buttons, sprites collision checks...)
+Melee attacks that change depending on the direction held (requires new added movement buttons, sprites & collision checks...)
 
 Weapon upgrades
-	- The more enemies you kill, your level increases and is shown at top-right
+	- The more enemies you kill, the higher your level; 
+		- A meter for it will be shown at top-right
 	- Each level increases damage output, size of bullets/explosions, and max HP
 
 2 more levels that expand upon the movement options/tiles/melee/upgrades
