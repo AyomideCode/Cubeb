@@ -14,6 +14,7 @@ from pygame.locals import *
 pygame.init()
 mixer.init()
 pygame.joystick.init()
+joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_count())]
 
 
 SCREEN_HEIGHT = 720
@@ -806,10 +807,11 @@ while run:
 
 
     for event in pygame.event.get():
-        #quit game
+        #quit game with the X at the top right
         if event.type == pygame.QUIT:
             run = False
-        #keyboard presses
+
+        #event handler for keyboard presses
         #this allows compatibility with arrow keys/zxc, with wasd/jkl, and with numpad/123. an alternate playstyle with wasd/space/ctrl is also provided.
         #very cluttered... might come back later to clean up
         if event.type == pygame.KEYDOWN and player.alive:
@@ -824,11 +826,12 @@ while run:
             if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
                 player.jump = True
                 jump_fx.play() #find a way to keep the player from activating the sfx every press
+
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
 
 
-        #keyboard button released
+        #event handler for keyboard button releases
         if event.type == pygame.KEYUP:
             if (event.key == pygame.K_a) | (event.key == pygame.K_KP1) | (event.key == pygame.K_LEFT):
                 moving_left = False
@@ -837,6 +840,34 @@ while run:
             if (event.key == pygame.K_k) | (event.key == pygame.K_x) | (event.key == pygame.K_2): #make a control for left mouse button
                 shoot = False
             if (event.key == pygame.K_LCTRL) | (event.key == pygame.K_q) | (event.key == pygame.K_c) | (event.key == pygame.K_3) | (event.key == pygame.K_l): #make a control for right mouse button
+                grenade = False
+                grenade_thrown = False
+
+
+        #event handler for controller buttons; d-pad for movement, A is jump, X is shoot, B is grenade
+        if event.type == pygame.JOYBUTTONDOWN and player.alive:
+            if (event.button == pygame.CONTROLLER_BUTTON_DPAD_LEFT):
+                moving_left = True
+            if (event.button == pygame.CONTROLLER_BUTTON_DPAD_RIGHT):
+                moving_right = True
+            if (event.button == pygame.CONTROLLER_BUTTON_X):
+                shoot = True
+            if (event.button == pygame.CONTROLLER_BUTTON_B):
+                grenade = True
+            if (event.button == pygame.CONTROLLER_BUTTON_DPAD_UP) | (event.button == pygame.CONTROLLER_BUTTON_A):
+                player.jump = True
+                jump_fx.play() #find a way to keep the player from activating the sfx every press
+
+
+        #event handler for controller button releases
+        if event.type == pygame.JOYBUTTONUP:
+            if (event.button == pygame.CONTROLLER_BUTTON_DPAD_LEFT):
+                moving_left = False
+            if (event.button == pygame.CONTROLLER_BUTTON_DPAD_RIGHT):
+                moving_right = False
+            if (event.button == pygame.CONTROLLER_BUTTON_X):
+                shoot = False
+            if (event.button == pygame.CONTROLLER_BUTTON_B):
                 grenade = False
                 grenade_thrown = False
 
