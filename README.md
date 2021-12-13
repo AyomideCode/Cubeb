@@ -6,7 +6,7 @@ Hello! This is Cubeb, soon being the repository for a 2D platformer game made us
 The game is playable with arrow keys/zxc, wasd/jkl, numpad/123, and controller d-pad/face buttons.
 
 The application runs and is built around a windowed 1280x720. 
-If you press F or Enter/Return, the game goes to fullscreen 720p.
+If you press F, F11 or Enter/Return, the game goes to fullscreen 720p.
 Press Enter/Return again to go back, or press Esc at any time to close the game.
 
 Left and Right Arrow keys do what you'd expect. 
@@ -39,13 +39,15 @@ Polish jump physics ✔
 	- Fix jump sound playing while in mid-air ✔
 	- Allow changing jump altitude and gravity, depending on how long the jump input is held ✔
 
-Fix crashes involving fullscreen with Alt + Enter ✔
+Fullscreen ✔
+
+Fix the game letting you jump the frame you hit the ground, if you pressed jump in the air
 
 Fix the screen scrolling too far and causing clipping at the end of each level
 
 Add small movement acceleration that influences jump height
 
-Tutorial level
+Implement tutorial level
 
 	- Gradually let the player explore the game mechanics as the level goes, without need for signs or prompts
 		- Start the player with no ammo or grenades, give them later when necessary
@@ -54,7 +56,9 @@ Tutorial level
 
 
 
-STRETCH FEATURES (For added polish/better game-feel):
+## STRETCH FEATURES (For added polish/better game-feel):
+
+Press a jump input after dying, & R at any time, to quickly restart the level
 
 Polish the sound effect calls
 

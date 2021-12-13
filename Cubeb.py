@@ -827,7 +827,7 @@ while run:
             if event.key == K_ESCAPE:
                 pygame.quit()
                 sys.exit()
-            if (event.key == K_f) | (event.key == K_RETURN):
+            if (event.key == K_f) | (event.key == K_RETURN) | (event.key == K_F11):
                 is_fullscreen = not is_fullscreen
                 if is_fullscreen:
                     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
