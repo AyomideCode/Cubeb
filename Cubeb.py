@@ -169,7 +169,8 @@ class Soldier(pygame.sprite.Sprite):
         self.frame_index = 0
         self.action = 0
         self.update_time = pygame.time.get_ticks()
-        #ai specific variables
+        
+        #ai-specific variables
         self.move_counter = 0
         self.vision = pygame.Rect(0, 0, 175, 20)
         self.idling = False
@@ -219,7 +220,7 @@ class Soldier(pygame.sprite.Sprite):
             self.flip = False
             self.direction = 1
 
-        #jump
+        #jump physics
         if self.jump == True and self.in_air == False:
             jump_fx.play()
             self.vel_y = -12
@@ -230,7 +231,7 @@ class Soldier(pygame.sprite.Sprite):
             self.vel_y += 3
             self.jump_released = False
 
-        #apply gravity
+        #apply gravity physics
         self.vel_y += GRAVITY
         if self.vel_y > 10:
             self.vel_y
@@ -241,7 +242,7 @@ class Soldier(pygame.sprite.Sprite):
             #check collision in the x direction
             if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
                 dx = 0
-                #if the ai has hit a wall then make it turn around
+                #if the ai has hit a wall, then make it turn around
                 if self.char_type == 'enemy':
                     self.direction *= -1
                     self.move_counter = 0
@@ -251,7 +252,7 @@ class Soldier(pygame.sprite.Sprite):
                 if self.vel_y < 0:
                     self.vel_y = 0
                     dy = tile[1].bottom - self.rect.top
-                #check if above the ground, i.e. falling
+                #check if above the ground (i.e. falling)
                 elif self.vel_y >= 0:
                     self.vel_y = 0
                     self.in_air = False

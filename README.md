@@ -31,7 +31,7 @@ Alternate keybinding support (allow multiple input methods to do the same action
 
 Controller support (d-pad and face buttons) ✔
 
-Polish jump physics
+Polish jump physics ✔
 
 	- Fix jump sound playing while in mid-air ✔
 	- Allow changing jump altitude and gravity, depending on how long the jump input is held ✔
@@ -54,17 +54,18 @@ Polish the sound effect calls
 	- Add separate player & enemy running and death SFX
 	- Add variance to the jump/shoot/grenade/death SFX
 
-Stage select and options on main menu + pause menu + death screen
+Stage select and options on main menu, pause menu & death screen
 
-	- Options menu
+	- Options menu:
 		- Make graphic (or open text file) showing all possible button/key inputs
 		- Change resolution/fullscreen
+		- Toggle on/off stuff
 		
 Add two levels to play after the first three
 
 	- Design one around hard platforming alone, then design one around hard platforming + enemies
 
-Add Game Over screen once player has beaten all levels
+Add Game Over/Thanks for Playing screen once player has beaten all levels
 	- Tally the amounts of Time/HP/Ammo/Grenades used, both per level and in total
 
 After level 5, offer two toggleable movement options:
@@ -76,11 +77,12 @@ After level 5, offer two toggleable movement options:
 
 New tiles
 
-	- Double jump refiller: lets the player jump again once collected
+	- Jump refiller: lets the player jump again once collected
 	- Coin : Collectable, adds to score, would be on top-right corner
 	- Bouncepad: boosts the player vertically
 	- Speedpad: boosts the player horizontally
 	- Spikes: halves the player's health
+	- Explosive box: 1 HP, both player and enemy can blow it up
 
 Melee attacks that change depending on the direction held (requires new added movement buttons, sprites & collision checks...)
 	- Make AI capable of meleeing you too, but with a predictable windup before the attack (assuming melee would do a lot of damage)
