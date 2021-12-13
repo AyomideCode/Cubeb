@@ -14,8 +14,9 @@ Assets
         - Replace bullet with kunai ✔
         - Replace player soldier with ninja girl ✔
 		- Replace enemy soldier with ninja guy ✔
-        - Replace grenade with bomb
-        - Replace background and add parallax to the new one
+        - Replace grenade with bomb 
+        - Replace background and add parallax to the new one ✔
+        - Replace tileset 
         
 
 Stage select and options on main menu	

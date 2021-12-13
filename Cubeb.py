@@ -52,7 +52,7 @@ grenade_thrown = False
 
 #load music and sounds
 pygame.mixer.music.load('audio/8BitAdventure.mp3')
-pygame.mixer.music.set_volume(0.05)
+pygame.mixer.music.set_volume(0.05) 
 pygame.mixer.music.play(-1, 0.0, 5000)
 jump_fx = pygame.mixer.Sound('audio/jump.wav')
 jump_fx.set_volume(0.1)
@@ -68,10 +68,12 @@ start_img = pygame.image.load('RussShooter/img/start_btn.png').convert_alpha()
 exit_img = pygame.image.load('RussShooter/img/exit_btn.png').convert_alpha()
 restart_img = pygame.image.load('RussShooter/img/restart_btn.png').convert_alpha()
 #background
-pine1_img = pygame.image.load('RussShooter/img/Background/pine1.png').convert_alpha()
-pine2_img = pygame.image.load('RussShooter/img/Background/pine2.png').convert_alpha()
-mountain_img = pygame.image.load('RussShooter/img/Background/mountain.png').convert_alpha()
-sky_img = pygame.image.load('RussShooter/img/Background/sky_cloud.png').convert_alpha()
+ground_img = pygame.image.load('img/background/ground.png').convert_alpha()
+pine1_img = pygame.image.load('img/background/pine1.png').convert_alpha()
+pine2_img = pygame.image.load('img/background/pine2.png').convert_alpha()
+mountain_img = pygame.image.load('img/background/mountain.png').convert_alpha()
+cloud_img = pygame.image.load('img/background/cloud.png').convert_alpha()
+sky_img = pygame.image.load('img/background/sky.png').convert_alpha()
 #store tiles in a list
 img_list = []
 for x in range(TILE_TYPES):
@@ -99,6 +101,7 @@ RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
+GRAY = (50, 50, 50)
 PINK = (235, 65, 54)
 
 #define font
@@ -110,13 +113,15 @@ def draw_text(text, font, text_col, x, y):
 
 
 def draw_bg():
-    screen.fill(BG)
+    screen.fill(WHITE)
     width = sky_img.get_width()
     for x in range(5):
-        screen.blit(sky_img, ((x * width) - bg_scroll * 0.5, 0))
-        screen.blit(mountain_img, ((x * width) - bg_scroll * 0.6, SCREEN_HEIGHT - mountain_img.get_height() - 300))
-        screen.blit(pine1_img, ((x * width) - bg_scroll * 0.7, SCREEN_HEIGHT - pine1_img.get_height() - 150))
+        screen.blit(sky_img, ((x * width) - bg_scroll * 0.3, 0))
+        screen.blit(cloud_img, ((x * width) - bg_scroll * 0.4, SCREEN_HEIGHT - cloud_img.get_height() - 100))
+        screen.blit(mountain_img, ((x * width) - bg_scroll * 0.5, SCREEN_HEIGHT - mountain_img.get_height() - 50))
+        screen.blit(pine1_img, ((x * width) - bg_scroll * 0.7, SCREEN_HEIGHT - pine1_img.get_height()))
         screen.blit(pine2_img, ((x * width) - bg_scroll * 0.8, SCREEN_HEIGHT - pine2_img.get_height()))
+        screen.blit(ground_img, ((x * width) - bg_scroll * 0.9, SCREEN_HEIGHT - ground_img.get_height()))
 
 
 #function to reset level
@@ -164,7 +169,7 @@ class Soldier(pygame.sprite.Sprite):
         self.update_time = pygame.time.get_ticks()
         #ai specific variables
         self.move_counter = 0
-        self.vision = pygame.Rect(0, 0, 150, 20)
+        self.vision = pygame.Rect(0, 0, 175, 20)
         self.idling = False
         self.idling_counter = 0
         
@@ -282,7 +287,7 @@ class Soldier(pygame.sprite.Sprite):
 
     def shoot(self):
         if self.shoot_cooldown == 0 and self.ammo > 0:
-            self.shoot_cooldown = 20
+            self.shoot_cooldown = 5
             bullet = Bullet(self.rect.centerx + (0.75 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
             bullet_group.add(bullet)
             #reduce ammo
@@ -296,7 +301,7 @@ class Soldier(pygame.sprite.Sprite):
                 self.update_action(0)#0: idle
                 self.idling = True
                 self.idling_counter = 50
-            #check if the ai in near the player
+            #check if the ai is near the player
             if self.vision.colliderect(player.rect):
                 #stop running and face the player
                 self.update_action(0)#0: idle
@@ -696,8 +701,8 @@ while run:
         if exit_button.draw(screen):
             run = False
     else:
-        #increase the audio volume
-        pygame.mixer.music.set_volume(0.1)
+        #increase the audio volume to 0.1
+        pygame.mixer.music.set_volume(0)
         #update background
         draw_bg()
         #draw world map
