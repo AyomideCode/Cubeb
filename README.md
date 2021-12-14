@@ -7,12 +7,11 @@ The game is playable with arrow keys/zxc, wasd/jkl, numpad/123, and controller d
 
 The application runs and is built around a windowed 1280x720. 
 If you press F, F11 or Enter/Return, the game goes to fullscreen 720p.
-Press Enter/Return again to go back, or press Esc at any time to close the game.
+Press the respective key again to go back to windowed, or press Esc at any time to close the game.
 
+DEFAULT:
 Left and Right Arrow keys do what you'd expect. 
 Up Arrow and Z map as jump, X maps as shoot, and C maps to your grenade.
-
-As of 12/13 7:30 AM, there are two currently playable levels; a third tutorial level is in the works. 
 
 [Project proposal: https://docs.google.com/document/d/1RulH314LERlbpVUxJNrRWT88P7ziuJKV94BrBrSf9gk/edit?usp=sharing ]
 [Project documentation: https://docs.google.com/document/d/1-xpwDip9mAC_HL3XQkx64S-SfMZn75iuFHx7e2mdhyI/edit?usp=sharing]
