@@ -44,7 +44,7 @@ Polish jump physics ✔
 
 Fullscreen ✔
 
-Fix the screen scrolling too far and causing clipping at the end of each level
+Fix the screen scrolling too far and causing clipping at the end of each level ✔
 
 Implement tutorial level
 

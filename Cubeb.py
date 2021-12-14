@@ -65,6 +65,8 @@ shot_fx = pygame.mixer.Sound(f'audio/shot{shot_grenade_fx_randint}.wav')
 shot_fx.set_volume(0.1)
 grenade_fx = pygame.mixer.Sound(f'audio/grenade{shot_grenade_fx_randint}.wav')
 grenade_fx.set_volume(0.1)
+death_fx = pygame.mixer.Sound('audio/death.wav')
+death_fx.set_volume(0.075)
 
 
 #load images
@@ -286,7 +288,7 @@ class Soldier(pygame.sprite.Sprite):
 
         #update scroll based on player position
         if self.char_type == 'player':
-            if (self.rect.right > SCREEN_WIDTH - SCROLL_THRESH and bg_scroll < (world.level_length * TILE_SIZE) - SCREEN_WIDTH)\
+            if (self.rect.right - 100 > SCREEN_WIDTH - SCROLL_THRESH and bg_scroll < (world.level_length * TILE_SIZE) - SCREEN_WIDTH)\
                 or (self.rect.left < SCROLL_THRESH and bg_scroll > abs(dx)):
                 self.rect.x -= dx
                 screen_scroll = -dx
@@ -345,7 +347,7 @@ class Soldier(pygame.sprite.Sprite):
 
     def update_animation(self):
         #update animation
-        ANIMATION_COOLDOWN = 100
+        ANIMATION_COOLDOWN = 50
         #update image depending on current frame
         self.image = self.animation_list[self.action][self.frame_index]
         #check if enough time has passed since the last update
@@ -377,6 +379,7 @@ class Soldier(pygame.sprite.Sprite):
             self.speed = 0
             self.alive = False
             self.update_action(3)
+        
 
 
     def draw(self):
