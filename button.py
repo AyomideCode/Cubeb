@@ -1,6 +1,6 @@
-import pygame 
-
 #button class, courtesy of Russ: youtube.com/channel/UCPrRY0S-VzekrJK7I7F4-Mg 
+
+import pygame 
 class Button():
     def __init__(self, x, y, image, scale):
         width = image.get_width()
