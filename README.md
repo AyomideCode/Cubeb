@@ -88,7 +88,7 @@ After level 5, offer two toggleable movement options:
 		- Give small increase to vertical velocity if running and jumping at the same time
 		- Make a toggleable option for running automatically or not
 
-## STRETCHHHHHHHHH FEATURES (Becauae imagination is a great thing):
+## STRETCH FEATURES (Because imagination is a great thing):
 
 New tiles
 
