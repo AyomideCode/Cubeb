@@ -1,7 +1,7 @@
 # Cubeb, a PyGame group project made for Computer Science II (Python) @ Howard University [CSCI 136-02 Fall 2021, Group #14]
 
 # In the first demo, I copy-pasted the Coding with Russ platformer tutorial Part 1, for learning purposes (youtube.com/watch?v=Ongc4EVqRjo)
-# In this demo and moving forward, I will use Russ's Scrolling Shooter Game tutorial as a backbone for my game (youtube.com/playlist?list=PLjcN1EyupaQm20hlUE11y9y8EY2aXLpnv)
+# In the last 48H, I used Russ's Scrolling Shooter Game tutorial as a backbone for the project (youtube.com/playlist?list=PLjcN1EyupaQm20hlUE11y9y8EY2aXLpnv)
 
 import pygame
 import sys
@@ -163,7 +163,7 @@ class Soldier(pygame.sprite.Sprite):
         self.direction = 1
         self.vel_y = 0
         self.jump = False
-        self.in_air = True
+        self.in_air = False
         self.jump_released = False
         self.flip = False
         self.animation_list = []
@@ -224,9 +224,10 @@ class Soldier(pygame.sprite.Sprite):
         #jump physics
         if self.jump == True and self.in_air == False:
             jump_fx.play()
-            self.vel_y = -12
             self.jump = False
+            self.vel_y = -12
             self.in_air = True
+            
         #jump_released: this variable and its manipulation allows the player to short-hop and manipulate their gravity as they jump.
         if self.jump_released == True:
             self.vel_y += 3
@@ -819,7 +820,7 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             
-        #this code allows both a resizable window, and fullscreen; kudos to DaFluffyPotato on YouTube for the code: https://pastebin.com/hH4H1eRT
+        #this code allows fullscreen; kudos to DaFluffyPotato on YouTube for the guidance: youtu.be/edJZOQwrMKw
         if event.type == VIDEORESIZE:
             if not is_fullscreen:
                 screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
@@ -846,8 +847,9 @@ while run:
                 shoot = True
             if (event.key == pygame.K_LCTRL) | (event.key == pygame.K_q) | (event.key == pygame.K_c) | (event.key == pygame.K_3) | (event.key == pygame.K_l):
                 grenade = True
-            if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
-                player.jump = True
+            if not player.in_air:
+                if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
+                    player.jump = True
 
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -865,8 +867,9 @@ while run:
                 grenade = False
                 grenade_thrown = False
             
-            if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
-                player.jump_released = True
+            if player.in_air:
+                if (event.key == pygame.K_w) | (event.key == pygame.K_SPACE) | (event.key == pygame.K_j) | (event.key == pygame.K_z) | (event.key == pygame.K_1) | (event.key == pygame.K_UP) | (event.key == pygame.K_KP5):
+                    player.jump_released = True
 
 
 
@@ -881,8 +884,10 @@ while run:
                 shoot = True
             if (event.button == pygame.CONTROLLER_BUTTON_B):
                 grenade = True
-            if (event.button == pygame.CONTROLLER_BUTTON_DPAD_UP) | (event.button == pygame.CONTROLLER_BUTTON_A):
-                player.jump = True
+            
+            if not player.in_air:
+                if (event.button == pygame.CONTROLLER_BUTTON_DPAD_UP) | (event.button == pygame.CONTROLLER_BUTTON_A):
+                    player.jump = True
 
 
         #event handler for controller button releases
@@ -896,8 +901,10 @@ while run:
             if (event.button == pygame.CONTROLLER_BUTTON_B):
                 grenade = False
                 grenade_thrown = False
-            if (event.button == pygame.CONTROLLER_BUTTON_DPAD_UP) | (event.button == pygame.CONTROLLER_BUTTON_A):
-                player.jump_released = True
+                
+            if player.in_air:
+                if (event.button == pygame.CONTROLLER_BUTTON_DPAD_UP) | (event.button == pygame.CONTROLLER_BUTTON_A):
+                    player.jump_released = True
 
 
     pygame.display.update()

@@ -38,14 +38,11 @@ Polish jump physics ✔
 
 	- Fix jump sound playing while in mid-air ✔
 	- Allow changing jump altitude and gravity, depending on how long the jump input is held ✔
+	- Fix the game letting you jump the frame you hit the ground, if you pressed jump in the air ✔
 
 Fullscreen ✔
 
-Fix the game letting you jump the frame you hit the ground, if you pressed jump in the air
-
 Fix the screen scrolling too far and causing clipping at the end of each level
-
-Add small movement acceleration that influences jump height
 
 Implement tutorial level
 
@@ -78,6 +75,7 @@ Add two levels to play after the first three
 	- Design one around hard platforming alone, then design one around hard platforming + enemies
 
 Add Game Over/Thanks for Playing screen once player has beaten all levels
+
 	- Tally the amounts of Time/HP/Ammo/Grenades used, both per level and in total
 
 After level 5, offer two toggleable movement options:
@@ -97,6 +95,7 @@ New tiles
 	- Explosive box: 1 HP, both player and enemy can blow it up
 
 Melee attacks that change depending on the direction held (requires new added movement buttons, sprites & collision checks...)
+
 	- Make AI capable of meleeing you too, but with a predictable windup before the attack (assuming melee would do a lot of damage)
 
 Level-up/score system
