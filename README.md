@@ -15,8 +15,10 @@ Up Arrow and Z map as jump, X maps as shoot, and C maps to your grenade.
 As of 12/13 7:30 AM, there are two currently playable levels; a third tutorial level is in the works. 
 
 [Project proposal: https://docs.google.com/document/d/1RulH314LERlbpVUxJNrRWT88P7ziuJKV94BrBrSf9gk/edit?usp=sharing ]
+[Project documentation: https://docs.google.com/document/d/1-xpwDip9mAC_HL3XQkx64S-SfMZn75iuFHx7e2mdhyI/edit?usp=sharing]
 
 ## TO-DO (Essential):
+
 
 Assets ✔
 
@@ -47,28 +49,30 @@ Fix the screen scrolling too far and causing clipping at the end of each level
 Implement tutorial level
 
 	- Gradually let the player explore the game mechanics as the level goes, without need for signs or prompts
-		- Start the player with no ammo or grenades, give them later when necessary
+		- Start the player with no ammo or grenades—give them later when necessary
 		- Design the level to let them figure out how to platform; slowly expose the player to traps/pits
 		- Give them a safe spot for their first enemy encounter
 
 
 
-## STRETCH FEATURES (For added polish/better game-feel):
+## STRETCH FEATURES (For potential-added polish/better game-feel):
 
-Press a jump input after dying, & R at any time, to quickly restart the level
 
-Polish the sound effect calls
+Add polish to effects
 
-	- Add separate player & enemy running and death SFX
+	- Add flash to enemy death animation
+	- Add separate player & enemy running/death SFX
 	- Add variance to the jump/shoot/grenade/death SFX
-		- Add variance to grenade explosions
+		- Add visual variance to grenade explosions
 
 Stage select and options on main menu, pause menu & death screen
 
 	- Options menu:
 		- Make graphic (or open text file) showing all possible button/key inputs
 		- Change resolution/fullscreen
-		- Toggle on/off stuff
+		- Toggle on/off buttons/keybindings
+
+Press a jump input after dying, & R at any time, to quickly restart the level
 		
 Add two levels to play after the first three
 
@@ -85,6 +89,8 @@ After level 5, offer two toggleable movement options:
 		- Give small increase to vertical velocity if running and jumping at the same time
 		- Make a toggleable option for running automatically or not
 
+## STRETCHHHHHHHHH FEATURES (Becauae imagination is a great thing):
+
 New tiles
 
 	- Jump refiller: lets the player jump again once collected
@@ -92,7 +98,7 @@ New tiles
 	- Bouncepad: boosts the player vertically
 	- Speedpad: boosts the player horizontally
 	- Spikes: halves the player's health
-	- Explosive box: 1 HP, both player and enemy can blow it up
+	- Explosive box: Has 1 HP, both player and enemy can blow it up
 
 Melee attacks that change depending on the direction held (requires new added movement buttons, sprites & collision checks...)
 

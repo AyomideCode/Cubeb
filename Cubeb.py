@@ -37,7 +37,7 @@ ROWS = 16
 COLS = 150
 TILE_SIZE = SCREEN_HEIGHT // ROWS
 TILE_TYPES = 21
-MAX_LEVELS = 2 #it is set at 2 because level 3 has no win condition or level design
+MAX_LEVELS = 3
 screen_scroll = 0
 bg_scroll = 0
 level = 1
@@ -407,7 +407,7 @@ class World():
                         decoration = Decoration(img, x * TILE_SIZE, y * TILE_SIZE)
                         decoration_group.add(decoration)
                     elif tile == 15:#create player
-                        player = Soldier('player', x * TILE_SIZE, y * TILE_SIZE, 1.65, 5, 20, 5)
+                        player = Soldier('player', x * TILE_SIZE, y * TILE_SIZE, 1.65, 6, 20, 3)
                         health_bar = HealthBar(10, 10, player.health, player.health)
                     elif tile == 16:#create enemies
                         enemy = Soldier('enemy', x * TILE_SIZE, y * TILE_SIZE, 1.65, 2, 20, 0)
@@ -596,7 +596,10 @@ class Grenade(pygame.sprite.Sprite):
                 abs(self.rect.centery - player.rect.centery) < int(TILE_SIZE * 1.25):
                 player.health -= 48
             for enemy in enemy_group:
-                if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 3 and \
+                if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 1.5 and \
+                    abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 1.5:
+                    enemy.health -= 100
+                elif abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 3 and \
                     abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 3:
                     enemy.health -= 99
 
