@@ -87,14 +87,14 @@ Add Game Over/Thanks for Playing screen once player has beaten all levels
 
 	- Tally the amounts of Time/HP/Ammo/Grenades used, both per level and in total
 
-After level 5, offer two toggleable movement options:
+After level 5, offer two movement options:
 
-	- Double Jump, offering half of the first jump's verticality (might have to adjust the )
+	- Double Jump, offering half of the first jump's verticality (might have to adjust the shorthop code )
 	- Run with Shift/RT
 		- Give small increase to vertical velocity if running and jumping at the same time
 		- Make a toggleable option for running automatically or not
 
-## STRETCH FEATURES (Because imagination is a great thing):
+## STRETCH FEATURES (Because why not):
 
 New tiles/entities
 
