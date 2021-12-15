@@ -59,7 +59,8 @@ Implement tutorial level
 
 Add polish to effects
 
-	- Add flash to enemy death animation
+	- Add SFX on hit detection
+	- Add flash to player & enemy hit & death animation
 	- Add separate player & enemy running/death SFX
 	- Add variance to the jump/shoot/grenade/death SFX
 		- Add visual variance to grenade explosions
@@ -69,13 +70,18 @@ Stage select and options on main menu, pause menu & death screen
 	- Options menu:
 		- Make graphic (or open text file) showing all possible button/key inputs
 		- Change resolution/fullscreen
-		- Toggle on/off buttons/keybindings
+		- Rebind controls
+		- Toggles for later
 
-Press a jump input after dying, & R at any time, to quickly restart the level
+Quick Restart
+	
+	- Press any jump input after dying to restart
+	- Press R at any time during the level to restart
 		
 Add two levels to play after the first three
 
-	- Design one around hard platforming alone, then design one around hard platforming + enemies
+	- Design one around hard platforming alone
+	- Design one around hard platforming + enemies
 
 Add Game Over/Thanks for Playing screen once player has beaten all levels
 
@@ -83,14 +89,14 @@ Add Game Over/Thanks for Playing screen once player has beaten all levels
 
 After level 5, offer two toggleable movement options:
 
-	- Double Jump, offering half of the first jump's verticality
+	- Double Jump, offering half of the first jump's verticality (might have to adjust the )
 	- Run with Shift/RT
 		- Give small increase to vertical velocity if running and jumping at the same time
 		- Make a toggleable option for running automatically or not
 
 ## STRETCH FEATURES (Because imagination is a great thing):
 
-New tiles
+New tiles/entities
 
 	- Jump refiller: lets the player jump again once collected
 	- Coin : Collectable, adds to score, would be on top-right corner
@@ -99,9 +105,14 @@ New tiles
 	- Spikes: halves the player's health
 	- Explosive box: Has 1 HP, both player and enemy can blow it up
 
+
 Melee attacks that change depending on the direction held (requires new added movement buttons, sprites & collision checks...)
 
 	- Make AI capable of meleeing you too, but with a predictable windup before the attack (assuming melee would do a lot of damage)
+	
+New character
+
+	- Have the character dedicated to melee, but make their ranged attacks weaker to compensate
 
 Level-up/score system
 
@@ -110,4 +121,6 @@ Level-up/score system
 	- Each level increases movement speed, damage output, size of bullets/explosions, and max HP
 	- A score system that incentivises the player to fight enemies (add a score/combo counter at top right)
 
-2 more levels that expand upon the added movement options/tiles/melee/upgrades
+Add two more levels 
+
+	- They must expand upon the added movement options/tiles/melee/upgrades
