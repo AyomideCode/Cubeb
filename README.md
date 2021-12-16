@@ -1,7 +1,7 @@
 # Cubeb
 ## PyGame group project made for Computer Science II (Python) @ Howard University [CSCI 136-02 Fall 2021, Group #14]
 
-Hello! This is Cubeb, soon being the repository for a 2D platformer game made using the PyGame library.
+Hello! This is Cubeb, the repository for a 2D platformer game made using the PyGame library.
 
 The game is playable with arrow keys/zxc, wasd/jkl, numpad/123, and controller d-pad/face buttons.
 
@@ -13,8 +13,11 @@ DEFAULT:
 Left and Right Arrow keys do what you'd expect. 
 Up Arrow and Z map as jump, X maps as shoot, and C maps to your grenade.
 
-[Project proposal: https://docs.google.com/document/d/1RulH314LERlbpVUxJNrRWT88P7ziuJKV94BrBrSf9gk/edit?usp=sharing ]
-[Project documentation: https://docs.google.com/document/d/1-xpwDip9mAC_HL3XQkx64S-SfMZn75iuFHx7e2mdhyI/edit?usp=sharing]
+## Project proposal: 
+[https://docs.google.com/document/d/1RulH314LERlbpVUxJNrRWT88P7ziuJKV94BrBrSf9gk/edit?usp=sharing]
+
+## Project documentation: 
+[https://docs.google.com/document/d/1-xpwDip9mAC_HL3XQkx64S-SfMZn75iuFHx7e2mdhyI/edit?usp=sharing]
 
 ## TO-DO (Essential):
 
